@@ -1,66 +1,51 @@
-// Hello World
-
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: Scrl(),
+    ));
 
-class MyApp extends StatelessWidget {
+class Scrl extends StatefulWidget {
+  const Scrl({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Scroll Tracker',
-      home: MyHomePage(),
-    );
-  }
+  State<Scrl> createState() => _ScrlState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final ScrollController _scrollController = ScrollController();
-  double _scrollDistance = 0.0;
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+class _ScrlState extends State<Scrl> {
+  int presses = 0;
+  int releases = 0;
+  double x = 0;
+  double y = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Scroll Tracker'),
-      ),
-      body: ListView.builder(
-        controller: _scrollController,
-        itemCount: 100,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Item $index'),
-          );
+    return Listener(
+        onPointerDown: (event) {
+          setState(() {
+            presses++;
+          });
         },
-      ),
-      persistentFooterButtons: <Widget>[
-        Text('Scroll Distance: $_scrollDistance'),
-      ],
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_scrollListener);
-  }
-
-  void _scrollListener() {
-    setState(() {
-      _scrollDistance = _scrollController.offset;
-    });
+        onPointerMove: (event) => setState(() {
+              x = event.position.dx;
+              y = event.position.dy;
+            }),
+        onPointerUp: (event) => setState(() {
+              releases++;
+            }),
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.grey,
+          child: Center(
+              child: Column(
+            children: [
+              Text('Number of presses : $presses'),
+              Text('Number of releases : $releases'),
+              Text('Cursor positions : (${x.round()}, ${y.round()})')
+            ],
+          )),
+        ));
   }
 }
