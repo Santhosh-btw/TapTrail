@@ -17,29 +17,38 @@ class Scrl extends StatefulWidget {
 class _ScrlState extends State<Scrl> {
   double startX = 0, startY = 0;
   double endX = 0, endY = 0;
-  double? dist = 0;
+  double dist = 0;
   double disp = 0;
+  double curX = 0, curY = 0;
 
   @override
   Widget build(BuildContext context) {
     return Listener(
         onPointerDown: (event) {
-          setState(() {
-            startX = event.position.dx;
-            startY = event.position.dy;
-          });
+          setState(
+            () {
+              startX = event.position.dx;
+              startY = event.position.dy;
+            },
+          );
         },
         onPointerUp: (event) {
-          setState(() {
-            endX = event.position.dx;
-            endY = event.position.dy;
-            disp = sqrt(pow((startX - endX), 2) - pow((startY - endY), 2));
-            print('start : ($startX, $startY)');
-            print('end : ($endX, $endY)');
-            print('disp : $disp');
-            print('---');
-          });
+          setState(
+            () {
+              endX = event.position.dx;
+              endY = event.position.dy;
+              disp = sqrt(pow((startX - endX), 2) + pow((startY - endY), 2));
+              print('start : (${startX.round()}, ${startY.round()})');
+              print('end : (${endX.round()}, ${endY.round()})');
+              print('disp : ${disp.round()}');
+              print('---');
+            },
+          );
         },
+        onPointerMove: (event) => setState(() {
+              curX = event.position.dx;
+              curY = event.position.dy;
+            }),
         child: Container(
           width: double.infinity,
           height: double.infinity,
@@ -49,7 +58,8 @@ class _ScrlState extends State<Scrl> {
             children: [
               Text('Start position : (${startX.round()}, ${startY.round()})'),
               Text('End position : (${endX.round()}, ${endY.round()})'),
-              Text('Displacement : ${disp}')
+              Text('Current position : (${curX.round()}, ${curY.round()})'),
+              Text('Displacement : ${disp.round()}')
             ],
           )),
         ));
