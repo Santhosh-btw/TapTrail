@@ -17,7 +17,7 @@ class Scrl extends StatefulWidget {
 class _ScrlState extends State<Scrl> {
   double startX = 0, startY = 0;
   double endX = 0, endY = 0;
-  double? dist = 0;
+  double dist = 0;
   double disp = 0;
 
   @override
