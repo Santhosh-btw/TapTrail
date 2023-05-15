@@ -33,7 +33,7 @@ class _ScrlState extends State<Scrl> {
           setState(() {
             endX = event.position.dx;
             endY = event.position.dy;
-            disp = sqrt(pow((startX - endX), 2) - pow((startY - endY), 2));
+            disp = sqrt(pow((startX - endX), 2) + pow((startY - endY), 2));
             print('start : ($startX, $startY)');
             print('end : ($endX, $endY)');
             print('disp : $disp');
