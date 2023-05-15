@@ -17,7 +17,7 @@ class Scrl extends StatefulWidget {
 class _ScrlState extends State<Scrl> {
   double startX = 0, startY = 0;
   double endX = 0, endY = 0;
-  double dist = 0;
+  double? dist = 0;
   double disp = 0;
 
   @override
@@ -34,6 +34,10 @@ class _ScrlState extends State<Scrl> {
             endX = event.position.dx;
             endY = event.position.dy;
             disp = sqrt(pow((startX - endX), 2) - pow((startY - endY), 2));
+            print('start : ($startX, $startY)');
+            print('end : ($endX, $endY)');
+            print('disp : $disp');
+            print('---');
           });
         },
         child: Container(
@@ -45,7 +49,7 @@ class _ScrlState extends State<Scrl> {
             children: [
               Text('Start position : (${startX.round()}, ${startY.round()})'),
               Text('End position : (${endX.round()}, ${endY.round()})'),
-              Text('Displacement : ${disp.round()}')
+              Text('Displacement : ${disp}')
             ],
           )),
         ));
