@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -14,36 +15,37 @@ class Scrl extends StatefulWidget {
 }
 
 class _ScrlState extends State<Scrl> {
-  int presses = 0;
-  int releases = 0;
-  double x = 0;
-  double y = 0;
+  double startX = 0, startY = 0;
+  double endX = 0, endY = 0;
+  double dist = 0;
+  double disp = 0;
 
   @override
   Widget build(BuildContext context) {
     return Listener(
         onPointerDown: (event) {
           setState(() {
-            presses++;
+            startX = event.position.dx;
+            startY = event.position.dy;
           });
         },
-        onPointerMove: (event) => setState(() {
-              x = event.position.dx;
-              y = event.position.dy;
-            }),
-        onPointerUp: (event) => setState(() {
-              releases++;
-            }),
+        onPointerUp: (event) {
+          setState(() {
+            endX = event.position.dx;
+            endY = event.position.dy;
+            disp = sqrt(pow((startX - endX), 2) - pow((startY - endY), 2));
+          });
+        },
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          color: Colors.grey,
+          color: Color.fromARGB(255, 25, 25, 25),
           child: Center(
               child: Column(
             children: [
-              Text('Number of presses : $presses'),
-              Text('Number of releases : $releases'),
-              Text('Cursor positions : (${x.round()}, ${y.round()})')
+              Text('Start position : (${startX.round()}, ${startY.round()})'),
+              Text('End position : (${endX.round()}, ${endY.round()})'),
+              Text('Displacement : ${disp.round()}')
             ],
           )),
         ));
