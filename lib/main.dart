@@ -32,9 +32,9 @@ class _ScrlState extends State<Scrl> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+    timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
       setState(() {
-        elapsedTime++;
+        elapsedTime += 0.1;
       });
     });
   }
@@ -59,6 +59,8 @@ class _ScrlState extends State<Scrl> {
           print('start : (${startX.round()}, ${startY.round()})');
           print('end : (${endX.round()}, ${endY.round()})');
           print('disp : ${disp.round()}');
+          print('elapsed : $elapsedTime');
+          print('total time: $timepassed');
           print('---');
           timepassed = elapsedTime;
           timer?.cancel();
@@ -76,13 +78,21 @@ class _ScrlState extends State<Scrl> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Start position : (${startX.round()}, ${startY.round()})'),
-              Text('End position : (${endX.round()}, ${endY.round()})'),
-              Text('Current position : (${curX.round()}, ${curY.round()})'),
-              Text('Displacement : ${disp.round()}'),
+              Text(
+                'Start position : (${startX.round()}, ${startY.round()})',
+                style: TextStyle(fontSize: 16),
+              ),
+              Text('End position : (${endX.round()}, ${endY.round()})',
+                  style: TextStyle(fontSize: 16)),
+              Text('Current position : (${curX.round()}, ${curY.round()})',
+                  style: TextStyle(fontSize: 16)),
+              Text('Displacement : ${disp.round()}',
+                  style: TextStyle(fontSize: 16)),
               SizedBox(height: 20),
-              Text('Elapsed Time: $elapsedTime seconds'),
-              Text('Time Passed: $timepassed seconds'),
+              Text('Elapsed Time: ${elapsedTime.round()} seconds',
+                  style: TextStyle(fontSize: 16)),
+              Text('Time Passed: ${timepassed.round()} seconds',
+                  style: TextStyle(fontSize: 16)),
             ],
           ),
         ),
