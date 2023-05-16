@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'dart:async';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -8,7 +9,7 @@ void main() => runApp(MaterialApp(
     ));
 
 class Scrl extends StatefulWidget {
-  const Scrl({super.key});
+  const Scrl({Key? key}) : super(key: key);
 
   @override
   State<Scrl> createState() => _ScrlState();
@@ -20,48 +21,72 @@ class _ScrlState extends State<Scrl> {
   double dist = 0;
   double disp = 0;
   double curX = 0, curY = 0;
+  double elapsedTime = 0;
+  Timer? timer;
+  double timepassed = 0;
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+      setState(() {
+        elapsedTime++;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Listener(
-        onPointerDown: (event) {
-          setState(
-            () {
-              startX = event.position.dx;
-              startY = event.position.dy;
-            },
-          );
-        },
-        onPointerUp: (event) {
-          setState(
-            () {
-              endX = event.position.dx;
-              endY = event.position.dy;
-              disp = sqrt(pow((startX - endX), 2) + pow((startY - endY), 2));
-              print('start : (${startX.round()}, ${startY.round()})');
-              print('end : (${endX.round()}, ${endY.round()})');
-              print('disp : ${disp.round()}');
-              print('---');
-            },
-          );
-        },
-        onPointerMove: (event) => setState(() {
-              curX = event.position.dx;
-              curY = event.position.dy;
-            }),
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: Color.fromARGB(255, 25, 25, 25),
-          child: Center(
-              child: Column(
+      onPointerDown: (event) {
+        setState(() {
+          startX = event.position.dx;
+          startY = event.position.dy;
+          elapsedTime = 0;
+          disp = 0;
+          startTimer();
+        });
+      },
+      onPointerUp: (event) {
+        setState(() {
+          endX = event.position.dx;
+          endY = event.position.dy;
+          disp = sqrt(pow((startX - endX), 2) + pow((startY - endY), 2));
+          print('start : (${startX.round()}, ${startY.round()})');
+          print('end : (${endX.round()}, ${endY.round()})');
+          print('disp : ${disp.round()}');
+          print('---');
+          timepassed = elapsedTime;
+          timer?.cancel();
+        });
+      },
+      onPointerMove: (event) => setState(() {
+        curX = event.position.dx;
+        curY = event.position.dy;
+      }),
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Color.fromARGB(255, 25, 25, 25),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Start position : (${startX.round()}, ${startY.round()})'),
               Text('End position : (${endX.round()}, ${endY.round()})'),
               Text('Current position : (${curX.round()}, ${curY.round()})'),
-              Text('Displacement : ${disp.round()}')
+              Text('Displacement : ${disp.round()}'),
+              SizedBox(height: 20),
+              Text('Elapsed Time: $elapsedTime seconds'),
+              Text('Time Passed: $timepassed seconds'),
             ],
-          )),
-        ));
+          ),
+        ),
+      ),
+    );
   }
 }
