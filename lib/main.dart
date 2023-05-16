@@ -5,7 +5,7 @@ import 'dart:async';
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: const Scrl(),
+      home: Scrl(),
     ));
 
 class Scrl extends StatefulWidget {
@@ -23,9 +23,7 @@ class _ScrlState extends State<Scrl> {
   double curX = 0, curY = 0;
   double elapsedTime = 0;
   Timer? timer;
-  Timer? distTime;
   double timepassed = 0;
-  List<List<double>> distTrack = [];
 
   @override
   void dispose() {
@@ -34,17 +32,9 @@ class _ScrlState extends State<Scrl> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
       setState(() {
-        elapsedTime++;
-      });
-    });
-  }
-
-  void distTracker() {
-    distTime = Timer.periodic(const Duration(seconds: 5), (timer) {
-      setState(() {
-        distTrack.insert(0, [curX, curY]);
+        elapsedTime += 0.1;
       });
     });
   }
@@ -59,7 +49,6 @@ class _ScrlState extends State<Scrl> {
           elapsedTime = 0;
           disp = 0;
           startTimer();
-          distTracker();
         });
       },
       onPointerUp: (event) {
@@ -75,8 +64,6 @@ class _ScrlState extends State<Scrl> {
           print('---');
           timepassed = elapsedTime;
           timer?.cancel();
-          distTime?.cancel();
-          // distTrack = [];
         });
       },
       onPointerMove: (event) => setState(() {
@@ -86,28 +73,26 @@ class _ScrlState extends State<Scrl> {
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        color: const Color.fromARGB(255, 25, 25, 25),
+        color: Color.fromARGB(255, 25, 25, 25),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'Start position : (${startX.round()}, ${startY.round()})',
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16),
               ),
               Text('End position : (${endX.round()}, ${endY.round()})',
-                  style: const TextStyle(fontSize: 16)),
+                  style: TextStyle(fontSize: 16)),
               Text('Current position : (${curX.round()}, ${curY.round()})',
-                  style: const TextStyle(fontSize: 16)),
+                  style: TextStyle(fontSize: 16)),
               Text('Displacement : ${disp.round()}',
-                  style: const TextStyle(fontSize: 16)),
-              const SizedBox(height: 20),
-              Text('Elapsed Time: $elapsedTime seconds',
-                  style: const TextStyle(fontSize: 16)),
-              Text('Time Passed: $timepassed seconds',
-                  style: const TextStyle(fontSize: 16)),
-              Text('List of distances: $distTrack',
-                  style: const TextStyle(fontSize: 16)),
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 20),
+              Text('Elapsed Time: ${elapsedTime.round()} seconds',
+                  style: TextStyle(fontSize: 16)),
+              Text('Time Passed: ${timepassed.round()} seconds',
+                  style: TextStyle(fontSize: 16)),
             ],
           ),
         ),
