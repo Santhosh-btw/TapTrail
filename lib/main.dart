@@ -24,7 +24,7 @@ class _ScrlState extends State<Scrl> {
   double elapsedTime = 0;
   Timer? timer;
   Timer? distTime;
-  double timepassed = 0;
+  double timePassed = 0;
   List<List<double>> distTrack = [];
 
   @override
@@ -34,17 +34,17 @@ class _ScrlState extends State<Scrl> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       setState(() {
-        elapsedTime++;
+        elapsedTime += 0.1;
       });
     });
   }
 
   void distTracker() {
-    distTime = Timer.periodic(const Duration(seconds: 5), (timer) {
+    distTime = Timer.periodic(const Duration(seconds: 2), (timer) {
       setState(() {
-        distTrack.insert(0, [curX, curY]);
+        distTrack.insert(0, [curX.round().toDouble(), curY.round().toDouble()]);
       });
     });
   }
@@ -58,6 +58,9 @@ class _ScrlState extends State<Scrl> {
           startY = event.position.dy;
           elapsedTime = 0;
           disp = 0;
+          distTrack = [];
+          distTrack.insert(
+              0, [startX.round().toDouble(), startY.round().toDouble()]);
           startTimer();
           distTracker();
         });
@@ -71,12 +74,13 @@ class _ScrlState extends State<Scrl> {
           print('end : (${endX.round()}, ${endY.round()})');
           print('disp : ${disp.round()}');
           print('elapsed : $elapsedTime');
-          print('total time: $timepassed');
+          print('total time: $timePassed');
           print('---');
-          timepassed = elapsedTime;
+          timePassed = elapsedTime;
+          distTrack
+              .insert(0, [endX.round().toDouble(), endY.round().toDouble()]);
           timer?.cancel();
           distTime?.cancel();
-          // distTrack = [];
         });
       },
       onPointerMove: (event) => setState(() {
@@ -102,9 +106,11 @@ class _ScrlState extends State<Scrl> {
               Text('Displacement : ${disp.round()}',
                   style: const TextStyle(fontSize: 16)),
               const SizedBox(height: 20),
-              Text('Elapsed Time: $elapsedTime seconds',
+              Text(
+                  'Elapsed Time: ${double.parse((elapsedTime).toStringAsFixed(1))} seconds',
                   style: const TextStyle(fontSize: 16)),
-              Text('Time Passed: $timepassed seconds',
+              Text(
+                  'Time Passed: ${double.parse((timePassed).toStringAsFixed(1))} seconds',
                   style: const TextStyle(fontSize: 16)),
               Text('List of distances: $distTrack',
                   style: const TextStyle(fontSize: 16)),
