@@ -26,9 +26,12 @@ class _ScrlState extends State<Scrl> {
   Timer? distTime;
   double timePassed = 0;
   List<List<double>> distTrack = [];
+  double totalDistance =
+      0; // adds all the distances to calculate the total distance covered
 
   @override
   void dispose() {
+    distTime?.cancel();
     timer?.cancel();
     super.dispose();
   }
@@ -45,6 +48,8 @@ class _ScrlState extends State<Scrl> {
     distTime = Timer.periodic(const Duration(seconds: 2), (timer) {
       setState(() {
         distTrack.insert(0, [curX.round().toDouble(), curY.round().toDouble()]);
+        totalDistance += sqrt(pow((distTrack[0][0] - distTrack[1][0]), 2) +
+            pow((distTrack[0][1] - distTrack[1][1]), 2));
       });
     });
   }
@@ -79,6 +84,8 @@ class _ScrlState extends State<Scrl> {
           timePassed = elapsedTime;
           distTrack
               .insert(0, [endX.round().toDouble(), endY.round().toDouble()]);
+          totalDistance += sqrt(pow((distTrack[0][0] - distTrack[1][0]), 2) +
+              pow((distTrack[0][1] - distTrack[1][1]), 2));
           timer?.cancel();
           distTime?.cancel();
         });
@@ -113,6 +120,8 @@ class _ScrlState extends State<Scrl> {
                   'Time Passed: ${double.parse((timePassed).toStringAsFixed(1))} seconds',
                   style: const TextStyle(fontSize: 16)),
               Text('List of distances: $distTrack',
+                  style: const TextStyle(fontSize: 16)),
+              Text('Total Distance: $totalDistance',
                   style: const TextStyle(fontSize: 16)),
             ],
           ),
