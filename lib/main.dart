@@ -24,7 +24,7 @@ class _ScrlState extends State<Scrl> {
   double elapsedTime = 0;
   Timer? timer;
   Timer? distTime;
-  double timePassed = 0;
+  // double timePassed = 0;
   List<List<double>> distTrack = [];
   double totalDistance =
       0; // adds all the distances to calculate the total distance covered
@@ -45,7 +45,7 @@ class _ScrlState extends State<Scrl> {
   }
 
   void distTracker() {
-    distTime = Timer.periodic(const Duration(seconds: 2), (timer) {
+    distTime = Timer.periodic(const Duration(milliseconds: 1), (timer) {
       setState(() {
         distTrack.insert(0, [curX.round().toDouble(), curY.round().toDouble()]);
         totalDistance += sqrt(pow((distTrack[0][0] - distTrack[1][0]), 2) +
@@ -63,6 +63,7 @@ class _ScrlState extends State<Scrl> {
           startY = event.position.dy;
           elapsedTime = 0;
           disp = 0;
+          // totalDistance = 0;
           distTrack = [];
           distTrack.insert(
               0, [startX.round().toDouble(), startY.round().toDouble()]);
@@ -79,9 +80,9 @@ class _ScrlState extends State<Scrl> {
           print('end : (${endX.round()}, ${endY.round()})');
           print('disp : ${disp.round()}');
           print('elapsed : $elapsedTime');
-          print('total time: $timePassed');
+          // print('total time: $timePassed');
           print('---');
-          timePassed = elapsedTime;
+          // timePassed = elapsedTime;
           distTrack
               .insert(0, [endX.round().toDouble(), endY.round().toDouble()]);
           totalDistance += sqrt(pow((distTrack[0][0] - distTrack[1][0]), 2) +
@@ -116,11 +117,11 @@ class _ScrlState extends State<Scrl> {
               Text(
                   'Elapsed Time: ${double.parse((elapsedTime).toStringAsFixed(1))} seconds',
                   style: const TextStyle(fontSize: 16)),
-              Text(
-                  'Time Passed: ${double.parse((timePassed).toStringAsFixed(1))} seconds',
-                  style: const TextStyle(fontSize: 16)),
-              Text('List of distances: $distTrack',
-                  style: const TextStyle(fontSize: 16)),
+              // Text(
+              //     'Time Passed: ${double.parse((timePassed).toStringAsFixed(1))} seconds',
+              //     style: const TextStyle(fontSize: 16)),
+              // Text('List of distances: $distTrack',
+              // style: const TextStyle(fontSize: 16)),
               Text('Total Distance: $totalDistance',
                   style: const TextStyle(fontSize: 16)),
             ],
