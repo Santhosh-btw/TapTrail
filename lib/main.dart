@@ -36,7 +36,7 @@ class _ScrlState extends State<Scrl> {
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        elapsedTime++;
+        elapsedTime = elapsedTime + 1;
       });
     });
   }
@@ -44,7 +44,7 @@ class _ScrlState extends State<Scrl> {
   void distTracker() {
     distTime = Timer.periodic(const Duration(seconds: 5), (timer) {
       setState(() {
-        distTrack.insert(0, [curX, curY]);
+        distTrack.insert(0, [curX.roundToDouble(), curY.roundToDouble()]);
       });
     });
   }
@@ -91,22 +91,11 @@ class _ScrlState extends State<Scrl> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Start position : (${startX.round()}, ${startY.round()})',
-                style: const TextStyle(fontSize: 16),
-              ),
-              Text('End position : (${endX.round()}, ${endY.round()})',
-                  style: const TextStyle(fontSize: 16)),
-              Text('Current position : (${curX.round()}, ${curY.round()})',
-                  style: const TextStyle(fontSize: 16)),
-              Text('Displacement : ${disp.round()}',
-                  style: const TextStyle(fontSize: 16)),
-              const SizedBox(height: 20),
               Text('Elapsed Time: $elapsedTime seconds',
                   style: const TextStyle(fontSize: 16)),
               Text('Time Passed: $timepassed seconds',
                   style: const TextStyle(fontSize: 16)),
-              Text('List of distances: $distTrack',
+              Text('List of co-ords: $distTrack',
                   style: const TextStyle(fontSize: 16)),
             ],
           ),
@@ -114,4 +103,24 @@ class _ScrlState extends State<Scrl> {
       ),
     );
   }
+}
+
+// functions to calculate the distances between x1, x2, y1 and y2 for each co-ord
+
+void eucl(List<List<double>> points) {
+  for (int i = 0; i < points.length; i++) {
+    for (int j = i + 1; j < points.length; j++) {
+      double dist = euclideanDistance(points[i], points[j]);
+      print('distance btwn ($points[i]) and ($points[j]) is $dist');
+    }
+  }
+}
+
+double euclideanDistance(List<double> point1, List<double> point2) {
+  double x1 = point1[0];
+  double y1 = point1[1];
+  double x2 = point2[0];
+  double y2 = point2[1];
+
+  return sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
 }
