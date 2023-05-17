@@ -45,7 +45,7 @@ class _ScrlState extends State<Scrl> {
   }
 
   void distTracker() {
-    distTime = Timer.periodic(const Duration(seconds: 2), (timer) {
+    distTime = Timer.periodic(const Duration(milliseconds: 200), (timer) {
       setState(() {
         distTrack.insert(0, [curX.round().toDouble(), curY.round().toDouble()]);
         totalDistance += sqrt(pow((distTrack[0][0] - distTrack[1][0]), 2) +
