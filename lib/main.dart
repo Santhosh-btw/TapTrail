@@ -61,6 +61,8 @@ class _ScrlState extends State<Scrl> {
         setState(() {
           startX = event.position.dx;
           startY = event.position.dy;
+          curX = startX;
+          curY = startY;
           elapsedTime = 0;
           disp = 0;
           distTrack = [];
