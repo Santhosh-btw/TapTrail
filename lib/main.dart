@@ -1,12 +1,23 @@
+// import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const Scrl(),
-    ));
+// import 'package:flutter_background_service/flutter_background_service.dart';
+
+void main() {
+  // FlutterBackgroundService().invoke('setAsForeground');
+
+  // final service = FlutterBackgroundService();
+  // service.startService();
+
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData.dark(),
+    home: const Scrl(),
+  ));
+}
 
 class Scrl extends StatefulWidget {
   const Scrl({Key? key}) : super(key: key);
@@ -56,9 +67,22 @@ class _ScrlState extends State<Scrl> {
 
   @override
   Widget build(BuildContext context) {
+    // FlutterBackgroundService().invoke('setAsForeground');
+    // FlutterBackgroundService().invoke('setAsBackground');
+    // final service = FlutterBackgroundService();
+    // bool isRunning = await service.isRunning();
+    // if (isRunning){
+
+    // }
+    // else{
+
+    // }
     return Listener(
       onPointerDown: (event) {
         setState(() {
+          // FlutterBackgroundService().invoke('setAsForeground');
+          // final service = FlutterBackgroundService();
+          // service.startService();
           startX = event.position.dx;
           startY = event.position.dy;
           curX = startX;
