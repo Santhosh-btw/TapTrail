@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -27,7 +28,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = {
-    'buttonOnPageLoadAnimation': AnimationInfo(
+    'buttonOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeIn,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'buttonOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         MoveEffect(
@@ -45,22 +58,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (Navigator.of(context).canPop()) {
-        context.pop();
-      }
-      context.pushNamed(
-        'LeaderBoard',
-        extra: <String, dynamic>{
-          kTransitionInfoKey: TransitionInfo(
-            hasTransition: true,
-            transitionType: PageTransitionType.rightToLeft,
-          ),
-        },
-      );
-    });
   }
 
   @override
@@ -190,15 +187,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(-0.81, -0.3),
+                alignment: AlignmentDirectional(0.81, -0.3),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    context.pushNamed('LeaderBoard');
                   },
-                  text: 'Running',
-                  icon: Icon(
-                    Icons.play_arrow,
-                    size: 15.0,
+                  text: 'Leaderboard',
+                  icon: FaIcon(
+                    FontAwesomeIcons.crown,
                   ),
                   options: FFButtonOptions(
                     height: 40.0,
@@ -206,7 +202,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
                     iconPadding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFF03BF0E),
+                    color: Color(0xFFF2CA53),
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Readex Pro',
                           color: Colors.white,
@@ -217,11 +213,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(25.0),
-                    hoverColor: Color(0xFFB1B1B1),
+                    hoverColor: FlutterFlowTheme.of(context).warning,
                   ),
                   showLoadingIndicator: false,
                 ).animateOnPageLoad(
-                    animationsMap['buttonOnPageLoadAnimation']!),
+                    animationsMap['buttonOnPageLoadAnimation1']!),
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
@@ -555,6 +551,40 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     ],
                   ),
                 ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(-0.81, -0.3),
+                child: FFButtonWidget(
+                  onPressed: () {
+                    print('Button pressed ...');
+                  },
+                  text: 'Running',
+                  icon: Icon(
+                    Icons.play_arrow,
+                    size: 15.0,
+                  ),
+                  options: FFButtonOptions(
+                    height: 40.0,
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFF52A447),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Readex Pro',
+                          color: Colors.white,
+                        ),
+                    elevation: 3.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(25.0),
+                    hoverColor: Color(0xFFB1B1B1),
+                  ),
+                  showLoadingIndicator: false,
+                ).animateOnPageLoad(
+                    animationsMap['buttonOnPageLoadAnimation2']!),
               ),
             ],
           ),

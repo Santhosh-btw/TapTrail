@@ -45,7 +45,9 @@ class _LeaderBoardWidgetState extends State<LeaderBoardWidget> {
           preferredSize: Size.fromHeight(40.0),
           child: AppBar(
             backgroundColor: Color(0xFFE6E6E6),
-            automaticallyImplyLeading: false,
+            iconTheme:
+                IconThemeData(color: FlutterFlowTheme.of(context).alternate),
+            automaticallyImplyLeading: true,
             actions: [],
             flexibleSpace: FlexibleSpaceBar(
               title: Text(

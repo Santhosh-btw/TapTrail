@@ -71,6 +71,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                           height: 140.0,
                           decoration: BoxDecoration(
                             color: Colors.white,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: Image.asset(
+                                'assets/images/pexels-roberto-hund-5356640.jpg',
+                              ).image,
+                            ),
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(16.0),
                               bottomRight: Radius.circular(16.0),
@@ -79,21 +85,6 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             ),
                           ),
                           alignment: AlignmentDirectional(-1.0, 0.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'TapTrail',
-                              style: FlutterFlowTheme.of(context)
-                                  .displaySmall
-                                  .override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: Color(0xFF101213),
-                                    fontSize: 36.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                          ),
                         ),
                         Container(
                           width: double.infinity,

@@ -840,7 +840,7 @@ class _Auth2WidgetState extends State<Auth2Widget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-0.75, -0.74),
+                        alignment: AlignmentDirectional(-0.79, -0.59),
                         child: Text(
                           'Sign In',
                           textAlign: TextAlign.center,
@@ -851,6 +851,44 @@ class _Auth2WidgetState extends State<Auth2Widget>
                                 fontSize: 35.0,
                               ),
                         ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(-0.73, -0.5),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 12.0, 0.0, 24.0),
+                          child: Text(
+                            'Glad to have you back!',
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Color(0xFF57636C),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 140.0,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: Image.asset(
+                              'assets/images/pexels-roberto-hund-5356640.jpg',
+                            ).image,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(16.0),
+                            bottomRight: Radius.circular(16.0),
+                            topLeft: Radius.circular(0.0),
+                            topRight: Radius.circular(0.0),
+                          ),
+                        ),
+                        alignment: AlignmentDirectional(-1.0, 0.0),
                       ),
                     ],
                   ),

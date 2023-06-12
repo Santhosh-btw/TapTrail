@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -54,33 +55,145 @@ class _UserDetailsChangeWidgetState extends State<UserDetailsChangeWidget> {
                     children: [
                       Align(
                         alignment: AlignmentDirectional(0.0, -1.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(25.0),
-                            bottomRight: Radius.circular(25.0),
-                            topLeft: Radius.circular(0.0),
-                            topRight: Radius.circular(0.0),
-                          ),
-                          child: Image.asset(
-                            'assets/images/cover-image.png',
-                            width: 395.0,
-                            height: 160.0,
-                            fit: BoxFit.cover,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            final selectedMedia =
+                                await selectMediaWithSourceBottomSheet(
+                              context: context,
+                              maxWidth: 5000.00,
+                              maxHeight: 5000.00,
+                              allowPhoto: true,
+                              includeDimensions: true,
+                            );
+                            if (selectedMedia != null &&
+                                selectedMedia.every((m) => validateFileFormat(
+                                    m.storagePath, context))) {
+                              setState(() => _model.isDataUploading1 = true);
+                              var selectedUploadedFiles = <FFUploadedFile>[];
+
+                              try {
+                                showUploadMessage(
+                                  context,
+                                  'Uploading file...',
+                                  showLoading: true,
+                                );
+                                selectedUploadedFiles = selectedMedia
+                                    .map((m) => FFUploadedFile(
+                                          name: m.storagePath.split('/').last,
+                                          bytes: m.bytes,
+                                          height: m.dimensions?.height,
+                                          width: m.dimensions?.width,
+                                          blurHash: m.blurHash,
+                                        ))
+                                    .toList();
+                              } finally {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                _model.isDataUploading1 = false;
+                              }
+                              if (selectedUploadedFiles.length ==
+                                  selectedMedia.length) {
+                                setState(() {
+                                  _model.uploadedLocalFile1 =
+                                      selectedUploadedFiles.first;
+                                });
+                                showUploadMessage(context, 'Success!');
+                              } else {
+                                setState(() {});
+                                showUploadMessage(
+                                    context, 'Failed to upload data');
+                                return;
+                              }
+                            }
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(25.0),
+                              bottomRight: Radius.circular(25.0),
+                              topLeft: Radius.circular(0.0),
+                              topRight: Radius.circular(0.0),
+                            ),
+                            child: Image.asset(
+                              'assets/images/cover-image.png',
+                              width: 395.0,
+                              height: 160.0,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
                       Align(
                         alignment: AlignmentDirectional(0.0, 0.3),
-                        child: Container(
-                          width: 125.0,
-                          height: 125.0,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/images/logo_invert.png',
-                            fit: BoxFit.cover,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            final selectedMedia =
+                                await selectMediaWithSourceBottomSheet(
+                              context: context,
+                              maxWidth: 5000.00,
+                              maxHeight: 5000.00,
+                              allowPhoto: true,
+                              includeDimensions: true,
+                            );
+                            if (selectedMedia != null &&
+                                selectedMedia.every((m) => validateFileFormat(
+                                    m.storagePath, context))) {
+                              setState(() => _model.isDataUploading2 = true);
+                              var selectedUploadedFiles = <FFUploadedFile>[];
+
+                              try {
+                                showUploadMessage(
+                                  context,
+                                  'Uploading file...',
+                                  showLoading: true,
+                                );
+                                selectedUploadedFiles = selectedMedia
+                                    .map((m) => FFUploadedFile(
+                                          name: m.storagePath.split('/').last,
+                                          bytes: m.bytes,
+                                          height: m.dimensions?.height,
+                                          width: m.dimensions?.width,
+                                          blurHash: m.blurHash,
+                                        ))
+                                    .toList();
+                              } finally {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                _model.isDataUploading2 = false;
+                              }
+                              if (selectedUploadedFiles.length ==
+                                  selectedMedia.length) {
+                                setState(() {
+                                  _model.uploadedLocalFile2 =
+                                      selectedUploadedFiles.first;
+                                });
+                                showUploadMessage(context, 'Success!');
+                              } else {
+                                setState(() {});
+                                showUploadMessage(
+                                    context, 'Failed to upload data');
+                                return;
+                              }
+                            }
+                          },
+                          child: Container(
+                            width: 125.0,
+                            height: 125.0,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.asset(
+                              'assets/images/logo_invert.png',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),

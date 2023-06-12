@@ -1,6 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:flutter/gestures.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -43,49 +43,71 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
           children: [
             Align(
               alignment: AlignmentDirectional(0.0, 0.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(8.0),
-                  bottomRight: Radius.circular(8.0),
-                  topLeft: Radius.circular(0.0),
-                  topRight: Radius.circular(0.0),
-                ),
-                child: Image.asset(
-                  'assets/images/New_Project_(3).png',
-                  width: MediaQuery.of(context).size.width * 1.0,
-                  height: MediaQuery.of(context).size.height * 1.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Align(
-              alignment: AlignmentDirectional(-0.8, 0.65),
-              child: Text(
-                'Welcome',
-                style: FlutterFlowTheme.of(context).displayMedium,
-              ),
-            ),
-            Align(
-              alignment: AlignmentDirectional(-0.7, 0.7),
-              child: RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Sign in / Sign up',
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(-1.09, -1.01),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        'assets/images/pexels-isaac-mitchell-13926396.jpg',
+                        width: MediaQuery.of(context).size.width * 1.0,
+                        height: MediaQuery.of(context).size.height * 1.0,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(-0.8, 0.7),
+                    child: Text(
+                      'Welcome',
+                      style:
+                          FlutterFlowTheme.of(context).displayMedium.override(
+                                fontFamily: 'Outfit',
+                                color: FlutterFlowTheme.of(context).primary,
+                              ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(0.0, 0.9),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        context.pushNamed('CreateAccount');
+                      },
+                      text: 'Get Started',
+                      options: FFButtonOptions(
+                        height: 40.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0xFF03BF0E),
+                        textStyle:
+                            FlutterFlowTheme.of(context).displayMedium.override(
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  fontSize: 16.0,
+                                ),
+                        elevation: 3.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(-0.69, 0.75),
+                    child: Text(
+                      'Things are about to be measured...',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Readex Pro',
-                            color: Color(0xFFD95959),
-                            fontWeight: FontWeight.bold,
+                            color: FlutterFlowTheme.of(context).primary,
                           ),
                     ),
-                    TextSpan(
-                      text: '  to enter the app',
-                      style: TextStyle(),
-                    )
-                  ],
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                ),
-                textAlign: TextAlign.start,
+                  ),
+                ],
               ),
             ),
           ],
