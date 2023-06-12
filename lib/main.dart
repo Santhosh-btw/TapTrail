@@ -1,134 +1,95 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'dart:async';
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const Scrl(),
-    ));
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'auth/firebase_auth/firebase_user_provider.dart';
+import 'auth/firebase_auth/auth_util.dart';
 
-class Scrl extends StatefulWidget {
-  const Scrl({Key? key}) : super(key: key);
+import 'backend/firebase/firebase_config.dart';
+import 'flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/flutter_flow_util.dart';
+import 'flutter_flow/internationalization.dart';
+import 'flutter_flow/nav/nav.dart';
+import 'index.dart';
 
-  @override
-  State<Scrl> createState() => _ScrlState();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
+  await initFirebase();
+
+  await FlutterFlowTheme.initialize();
+
+  runApp(MyApp());
 }
 
-class _ScrlState extends State<Scrl> {
-  double startX = 0, startY = 0;
-  double endX = 0, endY = 0;
-  double dist = 0;
-  double disp = 0;
-  double curX = 0, curY = 0;
-  double elapsedTime = 0;
-  Timer? timer;
-  Timer? distTime;
-  double timePassed = 0;
-  List<List<double>> distTrack = [];
-  double totalDistance =
-      0; // adds all the distances to calculate the total distance covered
+class MyApp extends StatefulWidget {
+  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>()!;
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+
+  late Stream<BaseAuthUser> userStream;
+
+  late AppStateNotifier _appStateNotifier;
+  late GoRouter _router;
+
+  final authUserSub = authenticatedUserStream.listen((_) {});
+
+  @override
+  void initState() {
+    super.initState();
+    _appStateNotifier = AppStateNotifier.instance;
+    _router = createRouter(_appStateNotifier);
+    userStream = tapTrailFirebaseUserStream()
+      ..listen((user) => _appStateNotifier.update(user));
+    jwtTokenStream.listen((_) {});
+    Future.delayed(
+      Duration(seconds: 1),
+      () => _appStateNotifier.stopShowingSplashImage(),
+    );
+  }
 
   @override
   void dispose() {
-    distTime?.cancel();
-    timer?.cancel();
+    authUserSub.cancel();
+
     super.dispose();
   }
 
-  void startTimer() {
-    timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      setState(() {
-        elapsedTime += 0.1;
-      });
-    });
+  void setLocale(String language) {
+    setState(() => _locale = createLocale(language));
   }
 
-  void distTracker() {
-    distTime = Timer.periodic(const Duration(milliseconds: 200), (timer) {
-      setState(() {
-        distTrack.insert(0, [curX.round().toDouble(), curY.round().toDouble()]);
-        totalDistance += sqrt(pow((distTrack[0][0] - distTrack[1][0]), 2) +
-            pow((distTrack[0][1] - distTrack[1][1]), 2));
+  void setThemeMode(ThemeMode mode) => setState(() {
+        _themeMode = mode;
+        FlutterFlowTheme.saveThemeMode(mode);
       });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      onPointerDown: (event) {
-        setState(() {
-          startX = event.position.dx;
-          startY = event.position.dy;
-          curX = startX;
-          curY = startY;
-          elapsedTime = 0;
-          disp = 0;
-          distTrack = [];
-          distTrack.insert(
-              0, [startX.round().toDouble(), startY.round().toDouble()]);
-          startTimer();
-          distTracker();
-        });
-      },
-      onPointerUp: (event) {
-        setState(() {
-          endX = event.position.dx;
-          endY = event.position.dy;
-          disp = sqrt(pow((startX - endX), 2) + pow((startY - endY), 2));
-          print('start : (${startX.round()}, ${startY.round()})');
-          print('end : (${endX.round()}, ${endY.round()})');
-          print('disp : ${disp.round()}');
-          print('elapsed : $elapsedTime');
-          print('total time: $timePassed');
-          print('---');
-          timePassed = elapsedTime;
-          distTrack
-              .insert(0, [endX.round().toDouble(), endY.round().toDouble()]);
-          totalDistance += sqrt(pow((distTrack[0][0] - distTrack[1][0]), 2) +
-              pow((distTrack[0][1] - distTrack[1][1]), 2));
-          timer?.cancel();
-          distTime?.cancel();
-        });
-      },
-      onPointerMove: (event) => setState(() {
-        curX = event.position.dx;
-        curY = event.position.dy;
-      }),
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: const Color.fromARGB(255, 25, 25, 25),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Start position : (${startX.round()}, ${startY.round()})',
-                style: const TextStyle(fontSize: 16),
-              ),
-              Text('End position : (${endX.round()}, ${endY.round()})',
-                  style: const TextStyle(fontSize: 16)),
-              Text('Current position : (${curX.round()}, ${curY.round()})',
-                  style: const TextStyle(fontSize: 16)),
-              Text('Displacement : ${disp.round()}',
-                  style: const TextStyle(fontSize: 16)),
-              const SizedBox(height: 20),
-              Text(
-                  'Elapsed Time: ${double.parse((elapsedTime).toStringAsFixed(1))} seconds',
-                  style: const TextStyle(fontSize: 16)),
-              Text(
-                  'Time Passed: ${double.parse((timePassed).toStringAsFixed(1))} seconds',
-                  style: const TextStyle(fontSize: 16)),
-              Text('List of distances: $distTrack',
-                  style: const TextStyle(fontSize: 16)),
-              Text('Total Distance: $totalDistance',
-                  style: const TextStyle(fontSize: 16)),
-            ],
-          ),
-        ),
-      ),
+    return MaterialApp.router(
+      title: 'TapTrail',
+      localizationsDelegates: [
+        FFLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: _locale,
+      supportedLocales: const [Locale('en', '')],
+      theme: ThemeData(brightness: Brightness.light),
+      darkTheme: ThemeData(brightness: Brightness.dark),
+      themeMode: _themeMode,
+      routerConfig: _router,
     );
   }
 }

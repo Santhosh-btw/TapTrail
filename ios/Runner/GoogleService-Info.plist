@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>190502741228-bjf8if6q8bge3al9r9ur644p4mcaoinl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.190502741228-bjf8if6q8bge3al9r9ur644p4mcaoinl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>190502741228-8top71f0dlbb2nh54u4t0i1taii94rln.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDJwKoT2pXYA1ros4jkjyIwgyQKNBH3LcE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>190502741228</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>taptrail.gamification</string>
+	<key>PROJECT_ID</key>
+	<string>taptrail-gamification</string>
+	<key>STORAGE_BUCKET</key>
+	<string>taptrail-gamification.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:190502741228:ios:4ecb2a576516992ff031c9</string>
+</dict>
+</plist>
