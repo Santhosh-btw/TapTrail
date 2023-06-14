@@ -96,7 +96,7 @@ class _Auth2WidgetState extends State<Auth2Widget>
                   child: Stack(
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.6),
+                        alignment: AlignmentDirectional(0.0, 2.31),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 100.0, 0.0, 0.0),
@@ -840,7 +840,7 @@ class _Auth2WidgetState extends State<Auth2Widget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-0.79, -0.59),
+                        alignment: AlignmentDirectional(-0.78, -0.56),
                         child: Text(
                           'Sign In',
                           textAlign: TextAlign.center,
@@ -853,7 +853,7 @@ class _Auth2WidgetState extends State<Auth2Widget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-0.73, -0.5),
+                        alignment: AlignmentDirectional(-0.74, -0.46),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 24.0),
