@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "190502741228",
+    "project_id": "taptrail-gamification",
+    "storage_bucket": "taptrail-gamification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190502741228:android:825936635ed2ccc1f031c9",
+        "android_client_info": {
+          "package_name": "taptrail.gamification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190502741228-8top71f0dlbb2nh54u4t0i1taii94rln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "taptrail.gamification",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "190502741228-qosvge1jaa9mdsd38v1rpom7blfrmoiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ0mNmFcckKtIzsAr3znL-U4XlkJtHUCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190502741228-qosvge1jaa9mdsd38v1rpom7blfrmoiq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "190502741228-bjf8if6q8bge3al9r9ur644p4mcaoinl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "taptrail.gamification"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
