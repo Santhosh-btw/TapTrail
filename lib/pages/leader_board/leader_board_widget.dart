@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -48,21 +49,17 @@ class _LeaderBoardWidgetState extends State<LeaderBoardWidget> {
             iconTheme:
                 IconThemeData(color: FlutterFlowTheme.of(context).alternate),
             automaticallyImplyLeading: true,
-            actions: [],
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                'LEADERBOARD',
-                style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Outfit',
-                      color: Color(0xFF252525),
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-              ),
-              centerTitle: true,
-              expandedTitleScale: 1.0,
-              titlePadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 15.0),
+            title: Text(
+              'LEADERBOARD',
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF252525),
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.w500,
+                  ),
             ),
+            actions: [],
+            centerTitle: true,
             elevation: 2.0,
           ),
         ),
@@ -87,7 +84,7 @@ class _LeaderBoardWidgetState extends State<LeaderBoardWidget> {
                             Stack(
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-0.73, -1.0),
+                                  alignment: AlignmentDirectional(-0.73, -0.97),
                                   child: Text(
                                     'Daily',
                                     style: FlutterFlowTheme.of(context)
@@ -1316,7 +1313,7 @@ class _LeaderBoardWidgetState extends State<LeaderBoardWidget> {
                             Stack(
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -1.0),
+                                  alignment: AlignmentDirectional(0.0, -0.97),
                                   child: Text(
                                     'Weekly',
                                     style: FlutterFlowTheme.of(context)
@@ -2545,7 +2542,7 @@ class _LeaderBoardWidgetState extends State<LeaderBoardWidget> {
                             Stack(
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.8, -1.0),
+                                  alignment: AlignmentDirectional(0.8, -0.97),
                                   child: Text(
                                     'Monthly',
                                     style: FlutterFlowTheme.of(context)
@@ -3775,7 +3772,7 @@ class _LeaderBoardWidgetState extends State<LeaderBoardWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, -0.93),
+                        alignment: AlignmentDirectional(0.0, -0.9),
                         child: smooth_page_indicator.SmoothPageIndicator(
                           controller: _model.pageViewController ??=
                               PageController(initialPage: 0),
