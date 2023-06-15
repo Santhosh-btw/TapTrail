@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:tap_trail/main.dart';
+import 'package:tap_trail/main_fe.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
