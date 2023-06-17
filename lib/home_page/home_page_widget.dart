@@ -5,9 +5,13 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -66,6 +70,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -109,7 +115,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                             child: Image.asset(
                               'assets/images/cover-image.png',
-                              width: 395.0,
+                              width: MediaQuery.of(context).size.width * 1.0,
                               height: 160.0,
                               fit: BoxFit.cover,
                             ),
@@ -179,6 +185,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           ),
                         ),
                       ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        child: Text(
+                          '9816521 px',
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -219,7 +232,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: Container(
-                  width: 365.0,
+                  width: MediaQuery.of(context).size.width * 0.95,
                   height: 482.0,
                   child: Stack(
                     children: [
@@ -276,37 +289,37 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                               child: Image.network(
+                                                'https://picsum.photos/seed/954/600',
+                                                width: 300.0,
+                                                height: 200.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                        () => ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.network(
+                                                'https://picsum.photos/seed/954/600',
+                                                width: 300.0,
+                                                height: 200.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                        () => ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.network(
+                                                'https://picsum.photos/seed/954/600',
+                                                width: 300.0,
+                                                height: 200.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                        () => ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.network(
                                                 'https://picsum.photos/seed/780/600',
-                                                width: 300.0,
-                                                height: 200.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                        () => ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                'https://picsum.photos/seed/954/600',
-                                                width: 300.0,
-                                                height: 200.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                        () => ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                'https://picsum.photos/seed/954/600',
-                                                width: 300.0,
-                                                height: 200.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                        () => ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                'https://picsum.photos/seed/954/600',
                                                 width: 300.0,
                                                 height: 200.0,
                                                 fit: BoxFit.cover,
@@ -552,8 +565,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
               Align(
                 alignment: AlignmentDirectional(-0.81, -0.3),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    setState(() {});
                   },
                   text: 'Running',
                   icon: Icon(
@@ -577,7 +590,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(25.0),
-                    hoverColor: Color(0xFFB1B1B1),
+                    hoverColor: FFAppState().colorChange,
                   ),
                   showLoadingIndicator: false,
                 ).animateOnPageLoad(
